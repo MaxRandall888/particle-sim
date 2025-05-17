@@ -1,0 +1,15 @@
+# Python bytecode and cache
+__pycache__/
+*.py[cod]
+*.pyo
+*$py.class
+
+# VSCode/Pylance settings and cache
+.vscode/
+.pylance/
+
+# Video files
+*.mp4
+
+# Simulation output directory
+output/

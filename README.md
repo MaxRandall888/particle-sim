@@ -61,12 +61,6 @@ python barnes_hut.py           # launches the window
 
 The gravitational constant **G** is provided by `body.gravity()` (defined in **body.py**) and has the value  
 ```python
-G = gravity()  # ≈0.449 in kpc³·kMs⁻¹·(10 Myr)⁻²
-All other parameters are declared near the top of barnes_hut.py:
-
-python
-Copy
-Edit
 half_box  = 100.0      # half-width of the periodic square (kpc)
 theta     = 0.7        # Barnes–Hut opening angle (dimensionless)
 epsilon   = 0.05       # Plummer softening length (kpc)

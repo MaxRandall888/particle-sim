@@ -54,14 +54,24 @@ python barnes_hut.py           # launches the window
 
 ## Running the Simulation
 
-All parameters are declared near the top of `barnes_hut.py`:
+**Simulation units:**
+- **Length**: kiloparsecs (kpc)  
+- **Mass**: thousands of solar masses (kMs, where 1 kMs = 10³ M☉)  
+- **Time**: 10 Myr  
 
+The gravitational constant **G** is provided by `body.gravity()` (defined in **body.py**) and has the value  
 ```python
-half_box = 100.0   # half-width of the periodic square
-theta    = 0.7     # Barnes–Hut opening angle
-epsilon  = 0.05    # Plummer softening length
-dt       = 0.05    # time step
-steps    = 5000    # total integration steps
+G = gravity()  # ≈0.449 in kpc³·kMs⁻¹·(10 Myr)⁻²
+All other parameters are declared near the top of barnes_hut.py:
+
+python
+Copy
+Edit
+half_box  = 100.0      # half-width of the periodic square (kpc)
+theta     = 0.7        # Barnes–Hut opening angle (dimensionless)
+epsilon   = 0.05       # Plummer softening length (kpc)
+dt        = 0.05       # time step (10 Myr)
+steps     = 5000       # total integration steps
 plot_type = "density"  # "scatter" or "density"
 ```
 

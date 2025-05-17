@@ -1,16 +1,16 @@
 """
 array_quadtree.py
-=================
+
 Flat (array-backed) quadtree with Numba-accelerated kernels.
 
 New in this revision
 --------------------
-1. **Bounding-box containment test** – we now store each node’s geometric
-   centre (*gx*, *gy*) and only subtract a particle’s own mass when the node
+1. **Bounding-box containment test** - we now store each node's geometric
+   centre (*gx*, *gy*) and only subtract a particle's own mass when the node
    actually contains that particle.
-2. **Zero-distance guard** – nodes whose centre lies exactly on a particle are
+2. **Zero-distance guard** - nodes whose centre lies exactly on a particle are
    skipped, preventing NaNs.
-3. **Float64 centre-of-mass and mass arrays** – improves numerical precision
+3. **Float64 centre-of-mass and mass arrays** - improves numerical precision
    for very massive cores embedded in light haloes.
 """
 
@@ -217,7 +217,7 @@ def compute_forces(
     eps: float,
     G: float = gravity(),
 ) -> np.ndarray:
-    """Barnes–Hut force computation.
+    """Barnes-Hut force computation.
 
     Args:
         pos, mass_b: Particle data.
@@ -325,6 +325,7 @@ class FlatQuadTree:
             self.mass, self.half, self.child, self.leaf,
             self.half_box,
         )
+
 
     # --------------------------------------------------------------------- #
     # Forces                                                                 #

@@ -6,76 +6,8 @@ from __future__ import annotations
 
 import numpy as np
 from body import Body
-from utils import run_sim
+from utils import run_sim, generate_galaxy, generate_random_grid
 
-
-# --- galaxy generator with spin control --------------------------------
-def generate_galaxy(
-    r0: float,
-    total_mass: float,
-    n_bodies: int,
-    half_box: float,
-    *,
-    center: tuple[float, float] = (0.0, 0.0),
-    vel_boost: float = 8.0,
-    spin: int = +1,
-) -> list[Body]:
-    """Exponential disk orbiting **clockwise** (*spin=+1*) or
-    **counter-clockwise** (*spin=-1*) about *center*.
-    """
-    cx, cy = center
-    mass   = total_mass / n_bodies
-    bodies: list[Body] = []
-
-    for _ in range(n_bodies):
-        r = -r0 * np.log(1.0 - np.random.rand())
-        if r >= half_box:
-            continue
-
-        phi = 2 * np.pi * np.random.rand()
-        rx, ry = r * np.cos(phi), r * np.sin(phi)
-
-        v = vel_boost * np.exp(-r0 / r) / np.sqrt(r)
-        vx = -spin * v * np.sin(phi)
-        vy =  spin * v * np.cos(phi)
-
-        bodies.append(Body(mass,
-                           cx + rx, cy + ry,
-                           vx, vy,
-                           box_half=half_box))
-    return bodies
-
-
-# --- optional random-grid generator ------------------------------------
-def generate_random_grid(
-    m_tot: float,
-    n_bodies: int,
-    half_box: float,
-    v_factor: float = 0.01,
-) -> list[Body]:
-    bodies: list[Body] = []
-    mass = m_tot / n_bodies
-    side = int(np.ceil(np.sqrt(n_bodies)))
-    spacing = (2 * half_box) / side
-    jitter = 0.4 * spacing
-
-    count = 0
-    for iy in range(side):
-        for ix in range(side):
-            if count >= n_bodies:
-                break
-            rx = -half_box + (ix + 0.5) * spacing
-            ry = -half_box + (iy + 0.5) * spacing
-            rx += (np.random.rand() - 0.5) * 2 * jitter
-            ry += (np.random.rand() - 0.5) * 2 * jitter
-            vx, vy = np.random.randn(2) * v_factor
-            bodies.append(Body(mass, rx, ry, vx, vy, box_half=half_box))
-            count += 1
-        if count >= n_bodies:
-            break
-    return bodies
-
-# ------------------------------------------------------------------------
 if __name__ == "__main__":
     # global simulation parameters
     half_box = np.float32(100.0)

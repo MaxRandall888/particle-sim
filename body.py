@@ -1,5 +1,5 @@
 """
-Lightweight particle wrapper for the flat-quadtree Barnes–Hut solver.
+Lightweight particle wrapper for the flat-quadtree Barnes-Hut solver.
 """
 
 from __future__ import annotations
@@ -72,7 +72,7 @@ class Body:
     # Time-integration helper (Euler–Cromer)                                #
     # --------------------------------------------------------------------- #
     def update(self, dt: float) -> None:
-        """Advance *self* by `dt` using Euler–Cromer integration."""
+        """Advance *self* by `dt` using Euler-Cromer integration."""
         self.v += (self.f / self.m) * dt
         self.r = np.mod(self.r + self.v * dt + self.box_half, 2 * self.box_half) - self.box_half
 
@@ -84,9 +84,9 @@ class Body:
         """Convert a list of Body objects to SoA NumPy arrays.
 
         Returns:
-            pos  – *(N, 2)* float32 positions
-            vel  – *(N, 2)* float32 velocities
-            mass – *(N,)*   float32 masses
+            pos  - *(N, 2)* float32 positions
+            vel  - *(N, 2)* float32 velocities
+            mass - *(N,)*   float32 masses
         """
         n = len(bodies)
         pos = np.empty((n, 2), dtype=np.float32)

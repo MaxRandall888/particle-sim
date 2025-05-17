@@ -1,0 +1,7 @@
+numpy>=1.26
+numba>=0.59
+pyqtgraph>=0.13
+PyQt6>=6.6        # Replace with PyQt5 or PySide6 if preferred
+matplotlib>=3.8
+tqdm>=4.66
+pytest>=8.0

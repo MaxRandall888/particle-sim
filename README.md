@@ -38,7 +38,7 @@ python barnes_hut.py           # launches the window
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/<your-username>/BarnesHut-sim.git
+   git clone git@github.com:MaxRandall888/particle-sim.git
    cd BarnesHut-sim
    ```
 

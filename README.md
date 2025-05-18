@@ -11,7 +11,7 @@ A performant **Barnes–Hut** *N-body* simulator written in pure Python and acce
 * **Flat array quadtree** with breadth-first storage for cache efficiency
 * **Single-precision (float32)** physics with the option of float64 centres of mass
 * **Real-time rendering**: scatter or log-density render modes with interactive controls
-* **Headless export**: record trajectories directly to MP4 via Matplotlib/FFmpeg
+* **Video export**: record trajectories directly to MP4 via Matplotlib/FFmpeg
 * Comprehensive **pytest** suite for regression and numerical accuracy
 * Cross-platform support for **Python 3.9 – 3.12** (Windows, macOS, Linux)
 
@@ -77,18 +77,18 @@ python barnes_hut.py
 
 ### Interactive Controls
 
-| Key         | Action            |
-| ----------- | ----------------- |
-| **Space**   | Pause / resume    |
-| **+ / −**   | Zoom in / out     |
-| **S**       | Toggle point size |
-| **Q / Esc** | Quit application  |
+| Key              | Action            |
+| ---------------- | ----------------- |
+| **Click & Drag** | Pan               |
+| **Scroll**       | Zoom in / out     |
+
+Any changes to the window (pan / zoom) will be displayed in the saved mp4.
 
 ---
 
 ## Generating Animations
 
-The helper `utils.run_sim` enables headless exports:
+The helper `utils.run_sim` enables exports:
 
 ```python
 from utils import generate_galaxy, run_sim
@@ -147,6 +147,12 @@ All graphical calls are mocked, so the tests run on headless CI servers without 
 * Enable persistent Numba compilation with `export NUMBA_CACHE=1` (Unix) or `set NUMBA_CACHE=1` (Windows).
 * For very large systems (≥ 10⁵ bodies), consider enabling double-precision centres of mass (already supported in `array_quadtree.py`).
 * The codebase is structured to allow straightforward porting of key kernels to **CuPy**, **PyTorch**, or other GPU frameworks for further acceleration.
+
+---
+
+## Known Issues
+
+* There is a minor bug in the force calculation that leads to divergence from the realistic trajectory (no current fix).
 
 ---
 

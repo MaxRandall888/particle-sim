@@ -5,6 +5,7 @@ Utility helpers and visualisation tools for the flat-quadtree Barnes–Hut solve
 from __future__ import annotations
 
 import os
+os.environ["PATH"] = os.path.join(os.getcwd(), "ffmpeg", "ffmpeg-2025-07-17-git-bc8d06d541-full_build", "bin") + os.pathsep + os.environ["PATH"]
 from typing import Optional, Tuple
 
 import matplotlib.pyplot as plt

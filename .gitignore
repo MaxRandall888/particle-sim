@@ -13,3 +13,6 @@ __pycache__/
 
 # Simulation output directory
 output/
+
+# The ffmpeg directory for the venv
+ffmpeg/

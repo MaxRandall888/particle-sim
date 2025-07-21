@@ -1,35 +1,68 @@
 # Barnes–Hut 2-D Galaxy Simulator
 
-A performant **Barnes–Hut** *N-body* simulator written in pure Python and accelerated with **Numba**. It offers real-time visualisation through **PyQtGraph** and MP4 generation.
+A performant **Barnes–Hut** *N-body* simulator written in pure Python and accelerated with **Numba**. It offers real‑time visualisation through **PyQtGraph** and MP4 generation.
 
-> **Acknowledgement** – Core ideas and several implementation details were adapted from the open-source work of **[@alessialin](https://github.com/alessialin)** in the project *BarnesHut-py*.
+> **Acknowledgement** – Core ideas and several implementation details were adapted from the open‑source work of **[@alessialin](https://github.com/alessialin)** in the project *BarnesHut-py*.
 
 ---
 
 ## Features
 
-* **Flat array quadtree** with breadth-first storage for cache efficiency
-* **Single-precision (float32)** physics with the option of float64 centres of mass
-* **Real-time rendering**: scatter or log-density render modes with interactive controls
-* **Video export**: record trajectories directly to MP4 via Matplotlib/FFmpeg
-* Comprehensive **pytest** suite for regression and numerical accuracy
-* Cross-platform support for **Python 3.9 – 3.12** (Windows, macOS, Linux)
+* **Flat array quadtree** with breadth‑first storage for cache efficiency  
+* **Single‑precision (float32)** physics with the option of float64 centres of mass  
+* **Real‑time rendering**: scatter or log‑density render modes with interactive controls  
+* **Video export**: record trajectories directly to MP4 via Matplotlib/FFmpeg  
+* Comprehensive **pytest** suite for regression and numerical accuracy  
+* Cross‑platform support for **Python 3.9 – 3.12** (Windows, macOS, Linux)
 
 ---
 
 ## Quick Start
 
-```bash
-git clone git@github.com:MaxRandall888/particle-sim.git
-cd BarnesHut-sim
+1. **Clone the repository**
 
-# (optional) create an isolated environment
-python -m venv .venv
-source .venv/bin/activate      # Windows: .venv\Scripts\activate
+   ```bash
+   git clone git@github.com:MaxRandall888/particle-sim.git
+   cd BarnesHut-sim
+   ```
 
-pip install -r requirements.txt
-python barnes_hut.py           # launches the window
-```
+2. **(Optional) create an isolated environment**
+
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate      # Windows: .venv\Scripts\activate
+   ```
+
+3. **Install dependencies**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Install FFmpeg (required for MP4 export)**
+
+   - **Option A – System-wide**:  
+     Install a static build of FFmpeg and add the `<ffmpeg>\bin` folder to your system PATH.
+
+   - **Option B – Project-local**:  
+     Download a static build and extract it to:
+     ```
+     ./ffmpeg/<...>/bin
+     ```
+     Then modify the line near the top of `utils.py` (just below `import os`) to:
+
+     ```python
+     import os
+     os.environ["PATH"] = os.path.join(os.getcwd(), "ffmpeg", "<your-directory-name>", "bin") + os.pathsep + os.environ["PATH"]
+     ```
+
+     Replace `<your-directory-name>` with the actual folder name you extracted.
+
+5. **Run the simulation**
+
+   ```bash
+   python barnes_hut.py
+   ```
 
 ---
 
@@ -54,12 +87,13 @@ python barnes_hut.py           # launches the window
 
 ## Running the Simulation
 
-**Simulation units:**
+**Simulation units:**  
 - **Length**: kiloparsecs (kpc)  
-- **Mass**: thousands of solar masses (kMs, where 1 kMs = 10³ M☉)  
-- **Time**: 10 Myr  
+- **Mass**: thousands of solar masses (kMs, where 1 kMs = 10³ M☉)  
+- **Time**: 10 Myr  
 
 The gravitational constant **G** is provided by `body.gravity()` (defined in **body.py**) and has the value  
+
 ```python
 half_box  = 100.0      # half-width of the periodic square (kpc)
 theta     = 0.7        # Barnes–Hut opening angle (dimensionless)
@@ -82,7 +116,7 @@ python barnes_hut.py
 | **Click & Drag** | Pan               |
 | **Scroll**       | Zoom in / out     |
 
-Any changes to the window (pan / zoom) will be displayed in the saved mp4.
+Any changes to the window (pan / zoom) will be displayed in the saved MP4.
 
 ---
 
@@ -144,8 +178,8 @@ All graphical calls are mocked, so the tests run on headless CI servers without 
 
 ## Performance Guidance
 
-* Enable persistent Numba compilation with `export NUMBA_CACHE=1` (Unix) or `set NUMBA_CACHE=1` (Windows).
-* For very large systems (≥ 10⁵ bodies), consider enabling double-precision centres of mass (already supported in `array_quadtree.py`).
+* Enable persistent Numba compilation with `export NUMBA_CACHE=1` (Unix) or `set NUMBA_CACHE=1` (Windows).  
+* For very large systems (≥ 10⁵ bodies), consider enabling double‑precision centres of mass (already supported in `array_quadtree.py`).  
 * The codebase is structured to allow straightforward porting of key kernels to **CuPy**, **PyTorch**, or other GPU frameworks for further acceleration.
 
 ---
@@ -164,7 +198,7 @@ Contributions are welcome. Please open an issue to propose major architectural o
 
 ## License
 
-This software is distributed under the **MIT License**.
+This software is distributed under the **MIT License**.  
 Portions of the codebase are derived from *BarnesHut-py* by **Alessia Lin**, licensed under the MIT license.
 
 ---
